@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>work</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script src="./lib/layui/layui.all.js"></script>
+    <script src="./lib/main.js"></script>
+    <link rel="stylesheet" href="./lib/layui/css/layui.css" media="all">
+    <style>
+        .checkallbox {
+            height: 50px;
+        }
+        
+        .OkBox {
+            padding: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="checkallbox">
+            <span>列表条目显示设置</span>
+            <input lay-skin="primary" type="checkbox" id="checkall" name="type" lay-filter="allChoose" value="checkall" /><span>全选</span>
+        </div>
+        <div class="seach-box">
+            <input name="check" title="写作" value="写作时长" id="write" type="checkbox" lay-skin="primary">写作时长&nbsp;&nbsp;&nbsp;&nbsp;
+            <input name="check" title="阅读" value="阅读时长" id="read" type="checkbox" lay-skin="primary">阅读时长&nbsp;&nbsp;&nbsp;&nbsp;
+            <input name="check" title="编程" value="编程时长" id="code" type="checkbox" lay-skin="primary">编程时长&nbsp;&nbsp;&nbsp;&nbsp;
+            <input name="check" title="游戏" value="游戏时长" id="game" type="checkbox" lay-skin="primary">游戏时长&nbsp;&nbsp;&nbsp;&nbsp;
+            <input name="check" title="睡觉" value="睡觉时长" id="sleep" type="checkbox" lay-skin="primary">睡觉时长
+        </div>
+        <div class="OkBox">
+            <button class="layui-btn" type="button" id="ok">确认</button>
+            <button class="layui-btn layui-btn-primary" type="button">取消</button>
+        </div>
+    </div>
+    <script>
+        ok.onclick = function() {
+            var i = document.getElementsByName("check");
+            var arr = new Array();
+            for (var k = 0, l = 0; k < i.length; k++) {
+                if (i[k].checked == true) {
+                    arr[l] = i[k].value;
+                    console.log(i[k].value);
+                    l++
+                }
+            }
+            console.log(arr);
+            var datas = [];
+            for (var i = 0; i < data.length; i++) {
+                var data_info = {};
+                var k = data[i]; //单个json对象
+                for (var j = 0; j < arr.length; j++) {
+                    console.log(arr[j]); //key值
+                    console.log(k[arr[j]]); //value值
+                    data_info[arr[j]] = k[arr[j]];
+                    console.log(data_info);
+                }
+
+                datas.push(data_info);
+                console.log(datas);
+            }
+            var str_json = JSON.stringify(datas);
+            console.log(str_json);
+            localStorage.setItem("key", str_json);
+
+            var page = layer.open({
+                type: 2,
+                title: "",
+                offset: 'auto',
+                area: ['500px', '300px'],
+                maxmin: true,
+                shadeClose: false,
+                content: `table.html`
+            })
+        }
+        var checkall = document.getElementById('checkall'); //获取全选
+        var checked = document.getElementsByTagName('input'); //获取div下的input
+        //全选
+        checkall.onclick = function() {
+            for (i = 0; i < checked.length; i++) {
+                checked[i].checked = this.checked;
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>
